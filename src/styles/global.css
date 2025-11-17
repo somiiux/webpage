@@ -1,0 +1,116 @@
+/* === FONTE PERSONALIZADA === */
+@font-face {
+  font-family: 'Monument';
+  src: url('/MonumentExtendedUltrabold.otf') format(opentype);
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family:'SpaceMono';
+  src: url('/SpaceMonoBold.ttf') format(truetype);
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family:'RainTax';
+  src: url('/RainTax.ttf') format(truetype);
+}
+
+/* === BASE === */
+body {
+  margin: 0;
+  color: #f5f5f5;
+  background: #0a0a0a;
+  font-family: 'Monument', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  height: 100dvh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+}
+
+/* === FONDO HOME === */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('/bg-somiiux.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  filter: brightness(0.4);
+  z-index: 0;
+}
+
+body.show-bg::after {
+  opacity: 1;
+}
+
+/* === CONTIDO CENTRAL === */
+main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: min(1100px, 100%);
+  flex-direction: column;
+}
+
+/* === TÍTULO === */
+h1 {
+  font-size: 5rem;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0;
+  transition: opacity 0.25s ease;
+}
+
+h1:hover {
+  opacity: 0.95;
+  cursor: default;
+}
+
+.focus-in-website {
+  font-family:'SpaceMono';
+  font-size: 1rem;
+}
+
+@media (hover: none), (pointer: coarse) {
+  body::after {
+    filter: brightness(0.25); /* 👈 máis escuro en pantallas táctiles */
+    transition: opacity 2s ease, filter 0.5s ease;
+  }
+}
+
+
+@media (max-width: 768px) {
+  body {
+    height: auto;           /* deixa crecer a altura */
+    min-height: 100dvh;     /* pero como mínimo ocupa a pantalla */
+    overflow: auto;         /* permite scroll en móbil */
+    padding: 2.5rem 1.5rem; /* aire nos lados */
+  }
+
+  main {
+    height: auto;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 14vw, 4rem); /* máis flexible en móbil */
+  }
+
+  .focus-in-website {
+    font-size: 0.9rem;
+  }
+}

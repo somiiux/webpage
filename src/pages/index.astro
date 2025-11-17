@@ -1,0 +1,104 @@
+---
+import "../styles/global.css";
+---
+
+<html lang="gl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="google-site-verification" content="L4SLkfdzHtVhBgKdSpuY53IMtpQCImZmNgYPvAOvGbI" />
+		<link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<title>somiiux</title>
+		<style>
+			/* Fade-in dende negro ao entrar */
+			body {
+				opacity: 0;
+				animation: fadeInFromBlack 1.2s ease forwards;
+			}
+
+			@keyframes fadeInFromBlack {
+				from {
+					background-color: #000;
+					opacity: 0;
+				}
+				to {
+					background-color: #0a0a0a;
+					opacity: 1;
+				}
+			}
+
+			body.locked {
+				pointer-events: none;
+			}
+
+			.focus-in-somiiux {
+				animation: focus-in-expand 1.2s
+					cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+			}
+
+			@keyframes focus-in-expand {
+				0% {
+					filter: blur(14px);
+					opacity: 0;
+				}
+				100% {
+					filter: blur(0);
+					opacity: 1;
+				}
+			}
+
+			.focus-in-website {
+				animation: focus-in-expand 1.2s
+					cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+			}
+
+			@keyframes focus-in-expand {
+				0% {
+					filter: blur(14px);
+					opacity: 0;
+				}
+				100% {
+					filter: blur(0);
+					opacity: 1;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<main>
+			<h1 id="title" class="focus-in-somiiux">SOMIIUX</h1>
+			<p class="focus-in-website">WEBSITE DESIGN PROCESS UNDERWAY</p>
+		</main>
+
+		<script is:inline>
+			const body = document.body;
+			const title = document.getElementById("title");
+
+			// detectamos se é un dispositivo táctil (móbil/tablet)
+			const isTouch = matchMedia(
+				"(hover: none), (pointer: coarse)",
+			).matches;
+
+			if (!isTouch) {
+				// 🖥️ Escritorio → activar co hover
+				title.addEventListener("mouseenter", () => {
+					body.classList.add("show-bg");
+				});
+
+				title.addEventListener("mouseleave", () => {
+					body.classList.remove("show-bg");
+				});
+			} else {
+				// 📱 Móbil → activar automáticamente 3s despois de cargar
+				window.addEventListener("load", () => {
+					setTimeout(() => {
+						body.classList.add("show-bg");
+					}, 3000); // 3 segundos
+				});
+			}
+		</script>
+	</body>
+</html>
