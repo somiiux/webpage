@@ -71,6 +71,7 @@ import "../styles/global.css";
 		<main>
 			<h1 id="title" class="focus-in-somiiux">SOMIIUX</h1>
 			<p class="focus-in-website">WEBSITE DESIGN PROCESS UNDERWAY</p>
+			<button id="biografiaBtn" class="biografia-btn">BIIO</button>
 		</main>
 
 		<script is:inline>
@@ -99,6 +100,64 @@ import "../styles/global.css";
 					}, 3000); // 3 segundos
 				});
 			}
+
+			// Efecto de desplazamiento hacia arriba-izquierda
+			document.getElementById('biografiaBtn')?.addEventListener('click', () => {
+				const mainContent = document.getElementById('mainContent');
+				const biografiaSection = document.getElementById('biografia');
+				
+				if (mainContent && biografiaSection) {
+					// Bloquear interacción temporalmente
+					body.classList.add('locked');
+					
+					// Aplicar transformación al contenido principal
+					mainContent.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease';
+					mainContent.style.transform = 'translate(-100%, -100%) scale(0.3)';
+					mainContent.style.opacity = '0';
+					
+					// Mostrar la biografía después de un delay
+					setTimeout(() => {
+						biografiaSection.classList.add('biografia-visible');
+						body.classList.remove('locked');
+					}, 400);
+				}
+			});
+
+			// Efecto para volver
+			document.getElementById('volverBtn')?.addEventListener('click', () => {
+				const mainContent = document.getElementById('mainContent');
+				const biografiaSection = document.getElementById('biografia');
+				
+				if (mainContent && biografiaSection) {
+					// Bloquear interacción temporalmente
+					body.classList.add('locked');
+					
+					// Ocultar biografía
+					biografiaSection.classList.remove('biografia-visible');
+					
+					// Restaurar contenido principal
+					setTimeout(() => {
+						mainContent.style.transform = 'translate(0, 0) scale(1)';
+						mainContent.style.opacity = '1';
+						body.classList.remove('locked');
+					}, 50);
+				}
+			});
 		</script>
+		<section id="biografia" class="biografia-section">
+			<div class="biografia-container">
+				<h2 class="biografia-title">Biografía</h2>
+				<div class="biografia-content">
+					<p>Aquí va tu contenido de biografía. Puedes hablar sobre tu trayectoria, 
+					experiencia, pasiones y lo que te motiva en el desarrollo web.</p>
+					
+					<p>Puedes agregar tantos párrafos como necesites para contar tu historia.</p>
+				</div>
+				
+				<button id="volverBtn" class="volver-btn">
+					Volver al inicio
+				</button>
+			</div>
+		</section>
 	</body>
 </html>
