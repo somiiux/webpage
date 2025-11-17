@@ -8,6 +8,14 @@
 }
 
 @font-face {
+  font-family: 'Monument_Reg';
+  src: url('/MonumentExtendedRegular.otf') format(opentype);
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'SpaceMono';
   src: url('/SpaceMonoBold.ttf') format(truetype);
   font-weight: 700;
@@ -130,22 +138,23 @@ h1:hover {
   display: inline-block;
   margin-top: 2rem;
   padding: 0.75rem 2rem;
-  background: #3B82F6;
+  background: #000000;
   color: white;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
+  border-radius: 4rem;
+  font-family: 'Monument_Reg', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0,8rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
   animation: focus-in-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation-delay: 0.6s;
   opacity: 0;
 }
 
 .biografia-btn:hover {
-  background: #2563EB;
+  background: #ffffff;
+  color: #000000;
   transform: translateY(-2px);
 }
 
@@ -163,18 +172,17 @@ h1:hover {
   background: #0a0a0a;
   color: white;
   z-index: 100;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.5s ease;
   padding: 2rem;
 }
 
-.biografia-section.biografia-visible {
+.biografia-section.active {
+  display: flex;
   opacity: 1;
-  visibility: visible;
 }
 
 .biografia-container {
@@ -185,6 +193,12 @@ h1:hover {
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+  transform: translateY(20px);
+  transition: transform 0.5s ease;
+}
+
+.biografia-section.active .biografia-container {
+  transform: translateY(0);
 }
 
 .biografia-title {
@@ -217,7 +231,6 @@ h1:hover {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
 }
 
 .volver-btn:hover {
@@ -228,18 +241,9 @@ h1:hover {
 @media (max-width: 768px) {
   .biografia-container {
     padding: 2rem;
-    margin: 1rem;
   }
 
   .biografia-title {
     font-size: 2rem;
   }
-
-  .biografia-content {
-    font-size: 1rem;
-  }
 }
-
-
-
-

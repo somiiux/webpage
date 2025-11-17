@@ -6,7 +6,10 @@ import "../styles/global.css";
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="google-site-verification" content="L4SLkfdzHtVhBgKdSpuY53IMtpQCImZmNgYPvAOvGbI" />
+		<meta
+			name="google-site-verification"
+			content="L4SLkfdzHtVhBgKdSpuY53IMtpQCImZmNgYPvAOvGbI"
+		/>
 		<link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="shortcut icon" href="/favicon.ico" />
@@ -68,22 +71,29 @@ import "../styles/global.css";
 	</head>
 
 	<body>
-		<main>
+		<main id="mainContent" class="main-content">
 			<h1 id="title" class="focus-in-somiiux">SOMIIUX</h1>
-			<p class="focus-in-website">WEBSITE DESIGN PROCESS UNDERWAY</p>
-			<button id="biografiaBtn" class="biografia-btn">BIIO</button>
+			<button id="biografiaBtn" class="biografia-btn">
+				BIIO
+			</button>
 		</main>
-		
+
 		<section id="biografia" class="biografia-section">
 			<div class="biografia-container">
 				<h2 class="biografia-title">Biografía</h2>
 				<div class="biografia-content">
-					<p>Aquí va tu contenido de biografía. Puedes hablar sobre tu trayectoria, 
-					experiencia, pasiones y lo que te motiva en el desarrollo web.</p>
-					
-					<p>Puedes agregar tantos párrafos como necesites para contar tu historia.</p>
+					<p>
+						Aquí va tu contenido de biografía. Puedes hablar sobre
+						tu trayectoria, experiencia, pasiones y lo que te motiva
+						en el desarrollo web.
+					</p>
+
+					<p>
+						Puedes agregar tantos párrafos como necesites para
+						contar tu historia.
+					</p>
 				</div>
-				
+
 				<button id="volverBtn" class="volver-btn">
 					Volver al inicio
 				</button>
@@ -91,8 +101,14 @@ import "../styles/global.css";
 		</section>
 
 		<script is:inline>
+			// 🔽 SCRIPT CORREGIDO - MÁS SIMPLE 🔽
+
 			const body = document.body;
 			const title = document.getElementById("title");
+			const biografiaBtn = document.getElementById("biografiaBtn");
+			const volverBtn = document.getElementById("volverBtn");
+			const mainContent = document.getElementById("mainContent");
+			const biografiaSection = document.getElementById("biografia");
 
 			// detectamos se é un dispositivo táctil (móbil/tablet)
 			const isTouch = matchMedia(
@@ -100,7 +116,6 @@ import "../styles/global.css";
 			).matches;
 
 			if (!isTouch) {
-				// 🖥️ Escritorio → activar co hover
 				title.addEventListener("mouseenter", () => {
 					body.classList.add("show-bg");
 				});
@@ -109,54 +124,47 @@ import "../styles/global.css";
 					body.classList.remove("show-bg");
 				});
 			} else {
-				// 📱 Móbil → activar automáticamente 3s despois de cargar
 				window.addEventListener("load", () => {
 					setTimeout(() => {
 						body.classList.add("show-bg");
-					}, 3000); // 3 segundos
+					}, 3000);
 				});
 			}
 
-			// Efecto de desplazamiento hacia arriba-izquierda
-			document.getElementById('biografiaBtn')?.addEventListener('click', () => {
-				const mainContent = document.getElementById('mainContent');
-				const biografiaSection = document.getElementById('biografia');
-				
-				if (mainContent && biografiaSection) {
-					// Bloquear interacción temporalmente
-					body.classList.add('locked');
-					
-					// Aplicar transformación al contenido principal
-					mainContent.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease';
-					mainContent.style.transform = 'translate(-100%, -100%) scale(0.3)';
-					mainContent.style.opacity = '0';
-					
-					// Mostrar la biografía después de un delay
-					setTimeout(() => {
-						biografiaSection.classList.add('biografia-visible');
-						body.classList.remove('locked');
-					}, 400);
-				}
+			// Función para abrir biografía
+			biografiaBtn.addEventListener("click", () => {
+				console.log("Botón clickeado"); // Para debug
+
+				body.classList.add("locked");
+				mainContent.style.transform =
+					"translate(-100%, -100%) scale(0.3)";
+				mainContent.style.opacity = "0";
+
+				setTimeout(() => {
+					biografiaSection.classList.add("active");
+					body.classList.remove("locked");
+				}, 400);
 			});
 
-			// Efecto para volver
-			document.getElementById('volverBtn')?.addEventListener('click', () => {
-				const mainContent = document.getElementById('mainContent');
-				const biografiaSection = document.getElementById('biografia');
-				
-				if (mainContent && biografiaSection) {
-					// Bloquear interacción temporalmente
-					body.classList.add('locked');
-					
-					// Ocultar biografía
-					biografiaSection.classList.remove('biografia-visible');
-					
-					// Restaurar contenido principal
-					setTimeout(() => {
-						mainContent.style.transform = 'translate(0, 0) scale(1)';
-						mainContent.style.opacity = '1';
-						body.classList.remove('locked');
-					}, 50);
+			// Función para cerrar biografía
+			volverBtn.addEventListener("click", () => {
+				body.classList.add("locked");
+				biografiaSection.classList.remove("active");
+
+				setTimeout(() => {
+					mainContent.style.transform = "translate(0, 0) scale(1)";
+					mainContent.style.opacity = "1";
+					body.classList.remove("locked");
+				}, 50);
+			});
+
+			// Cerrar con ESC
+			document.addEventListener("keydown", (e) => {
+				if (
+					e.key === "Escape" &&
+					biografiaSection.classList.contains("active")
+				) {
+					volverBtn.click();
 				}
 			});
 		</script>
