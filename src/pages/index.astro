@@ -122,74 +122,69 @@ import "../styles/global.css";
 			const volverBtn = document.getElementById("volverBtn");
 			const mainContent = document.getElementById("mainContent");
 			const biografiaSection = document.getElementById("biografia");
-			const biografiaContainer = document.querySelector(
-				".biografia-container",
-			);
+
+			let isBioOpen = false;
 
 			// Función para abrir biografía
 			biografiaBtn.addEventListener("click", () => {
-				console.log("Botón clickeado");
+				if (isBioOpen) return;
 
+				console.log("Abrir bio");
+				isBioOpen = true;
 				body.classList.add("locked");
 
-				// 🔽 SOLUCIÓN SIMPLE: REMOVER Y VOLVER A AÑADIR CLASES 🔽
-				biografiaSection.classList.remove("active");
-				void biografiaSection.offsetWidth; // Forzar reflow
+				// Reset completo de estilos
+				biografiaSection.style.animation = "none";
+				mainContent.style.animation = "none";
 
+				// Forzar reflow
+				void biografiaSection.offsetWidth;
+				void mainContent.offsetWidth;
+
+				// Aplicar transformaciones
 				mainContent.style.transform =
 					"translate(-100vw, -100vh) scale(0.6)";
 				mainContent.style.opacity = "0";
 				body.style.opacity = "0";
 
 				setTimeout(() => {
-					biografiaSection.classList.add("active");
+					biografiaSection.style.display = "flex";
+					biografiaSection.style.opacity = "1";
 					body.classList.remove("locked");
-				}, 50); // 🔽 DELAY MUY CORTO 🔽
+				}, 400);
 			});
 
-			// Función para cerrar biografía (igual que antes)
+			// Función para cerrar biografía
 			volverBtn.addEventListener("click", () => {
+				if (!isBioOpen) return;
+
+				console.log("Cerrar bio");
+				isBioOpen = false;
 				body.classList.add("locked");
 
-				const isMobile = window.innerWidth <= 768;
-				const exitAnimation = isMobile
-					? "containerSlideToBottomMobile"
-					: "containerSlideToBottomRight";
+				// Ocultar bio inmediatamente
+				biografiaSection.style.opacity = "0";
+				biografiaSection.style.display = "none";
 
-				biografiaContainer.style.animation = `${exitAnimation} 0.6s ease forwards`;
-
-				document.querySelector(".biografia-title").style.opacity = "0";
-				document.querySelector(".biografia-content").style.opacity =
-					"0";
-				document.querySelector(".volver-btn").style.opacity = "0";
+				// Reset de main content
+				mainContent.style.transform =
+					"translate(-100vw, -100vh) scale(0.6)";
+				mainContent.style.opacity = "0";
 
 				setTimeout(() => {
-					biografiaSection.classList.remove("active");
-					biografiaContainer.style.animation = "";
-
-					mainContent.style.transform =
-						"translate(-100vw, -100vh) scale(0.6)";
-					mainContent.style.opacity = "0";
+					mainContent.style.transform = "translate(0, 0) scale(1)";
+					mainContent.style.opacity = "1";
 
 					setTimeout(() => {
-						mainContent.style.transform =
-							"translate(0, 0) scale(1)";
-						mainContent.style.opacity = "1";
-
-						setTimeout(() => {
-							body.style.opacity = "1";
-							body.classList.remove("locked");
-						}, 800);
-					}, 50);
-				}, 600);
+						body.style.opacity = "1";
+						body.classList.remove("locked");
+					}, 800);
+				}, 50);
 			});
 
 			// Cerrar con ESC
 			document.addEventListener("keydown", (e) => {
-				if (
-					e.key === "Escape" &&
-					biografiaSection.classList.contains("active")
-				) {
+				if (e.key === "Escape" && isBioOpen) {
 					volverBtn.click();
 				}
 			});
