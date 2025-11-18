@@ -139,6 +139,7 @@ h1:hover {
   border: none;
   border-radius: 4rem;
   font-family: 'Monument_Reg';
+  color: black;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -146,10 +147,6 @@ h1:hover {
   animation: focus-in-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation-delay: 0.6s;
   opacity: 0;
-}
-
-.biografia-btn:hover {
-  transform: translateY(-2px);
 }
 
 /* CONTENEDOR CENTRADO PERO ANIMACIÓN DESDE ABAJO-DERECHA */
@@ -275,6 +272,7 @@ h1:hover {
   font-family: 'Monument_Reg';
   font-size: clamp(0.8rem, 1.5vw, 0.9rem);
   font-weight: 500;
+  color: black;
   cursor: pointer;
   transition: all 0.3s ease;
   animation: buttonFadeIn 0.5s ease forwards;
@@ -294,45 +292,42 @@ h1:hover {
 
 /* 🔽 RESPONSIVE - EN MÓVIL DESDE ABAJO CENTRADO 🔽 */
 @media (max-width: 768px) {
+  .biografia-section {
+    padding: 1rem;
+    align-items: center; /* 🔽 CAMBIADO: Centrado vertical 🔽 */
+    justify-content: center;
+  }
+  
   .biografia-container {
     max-width: 95%;
-    max-height: 90vh;
+    max-height: 85vh; /* 🔽 REDUCIDO: Más espacio arriba 🔽 */
     padding: 1.5rem;
     width: 95%;
-    transform: translateX(100vw) translateY(100vh); /* 🔽 MISMA POSICIÓN INICIAL 🔽 */
-    animation: containerSlideFromBottomRightMobile 0.6s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
+    transform: translateY(20px); /* 🔽 MENOS DESPLAZAMIENTO 🔽 */
+    animation: containerSlideFromBottomMobile 0.4s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
   }
   
-  .biografia-container {
-    max-width: 95%;
-    max-height: 90vh;
-    padding: 2rem;
-    width: 95%;
-    transform: translateY(100px); /* 🔽 POSICIÓN INICIAL ABAJO 🔽 */
-    animation: containerSlideFromBottom 0.4s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
-  }
-  
-  /* 🔽 ANIMACIÓN PARA MÓVIL TAMBIÉN DESDE ESQUINA 🔽 */
-  @keyframes containerSlideFromBottomRightMobile {
+  /* 🔽 ANIMACIÓN MÓVIL MÁS CENTRADA 🔽 */
+  @keyframes containerSlideFromBottomMobile {
     0% {
       opacity: 0;
-      transform: translateX(100vw) translateY(100vh);
+      transform: translateY(40px); /* 🔽 MENOS DISTANCIA 🔽 */
     }
     100% {
       opacity: 1;
-      transform: translateX(0) translateY(0);
+      transform: translateY(0);
     }
   }
   
   /* 🔽 SALIDA PARA MÓVIL TAMBIÉN HACIA ESQUINA 🔽 */
-  @keyframes containerSlideToBottomRightMobile {
+  @keyframes containerSlideToBottomMobile {
     0% {
       opacity: 1;
-      transform: translateX(0) translateY(0);
+      transform: translateY(0);
     }
     100% {
       opacity: 0;
-      transform: translateX(100vw) translateY(100vh);
+      transform: translateY(40px); /* 🔽 MENOS DISTANCIA 🔽 */
     }
   }
   
@@ -353,23 +348,21 @@ h1:hover {
 @media (max-width: 640px) {
   .biografia-section {
     padding: 0.5rem;
-    align-items: flex-end;
+    align-items: center; /* 🔽 CENTRADO 🔽 */
     justify-content: center;
   }
   
   .biografia-container {
     max-width: 98%;
-    width: 98%;
-    max-height: 95vh;
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    transform: translateY(80px);
+    max-height: 80vh; /* 🔽 MÁS ESPACIO ARRIBA 🔽 */
+    padding: 1.25rem;
+    transform: translateY(15px); /* 🔽 POCO DESPLAZAMIENTO 🔽 */
   }
   
-  @keyframes containerSlideFromBottom {
+  @keyframes containerSlideFromBottomMobile {
     0% {
       opacity: 0;
-      transform: translateY(80px);
+      transform: translateY(30px);
     }
     100% {
       opacity: 1;
@@ -377,14 +370,14 @@ h1:hover {
     }
   }
   
-  @keyframes containerSlideToBottom {
+  @keyframes containerSlideToBottomMobile {
     0% {
       opacity: 1;
       transform: translateY(0);
     }
     100% {
       opacity: 0;
-      transform: translateY(80px);
+      transform: translateY(30px);
     }
   }
   
@@ -413,17 +406,15 @@ h1:hover {
 @media (max-width: 480px) {
   .biografia-container {
     max-width: 100%;
-    width: 100%;
-    max-height: 100vh;
-    padding: 1.25rem;
-    border-radius: 0.5rem;
-    transform: translateY(70px);
+    max-height: 75vh; /* 🔽 AÚN MÁS ESPACIO ARRIBA 🔽 */
+    padding: 1rem;
+    transform: translateY(10px); /* 🔽 MÍNIMO DESPLAZAMIENTO 🔽 */
   }
   
-  @keyframes containerSlideFromBottom {
+  @keyframes containerSlideFromBottomMobile {
     0% {
       opacity: 0;
-      transform: translateY(70px);
+      transform: translateY(20px);
     }
     100% {
       opacity: 1;
@@ -431,28 +422,31 @@ h1:hover {
     }
   }
   
-  @keyframes containerSlideToBottom {
+  @keyframes containerSlideToBottomMobile {
     0% {
       opacity: 1;
       transform: translateY(0);
     }
     100% {
       opacity: 0;
-      transform: translateY(70px);
+      transform: translateY(20px);
     }
   }
   
   .biografia-title {
     font-size: 1.4rem;
+    margin-bottom: 1rem; /* 🔽 MENOS MARGEN ABAJO 🔽 */
   }
   
   .biografia-content {
     font-size: 0.8rem;
+    margin-bottom: 1.5rem; /* 🔽 MENOS MARGEN 🔽 */
   }
   
   .biografia-content p {
     font-size: 0.75rem;
     line-height: 1.5;
+    margin-bottom: 1rem; /* 🔽 MENOS ESPACIO ENTRE PÁRRAFOS 🔽 */
   }
 }
 
