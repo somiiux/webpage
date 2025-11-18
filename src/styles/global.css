@@ -303,6 +303,8 @@ h1:hover {
     max-height: 85vh; /* 🔽 REDUCIDO: Más espacio arriba 🔽 */
     padding: 1.5rem;
     width: 95%;
+    backdrop-filter: none; /* 🔽 ASEGURAR QUE ESTÉ EN NONE 🔽 */
+    -webkit-backdrop-filter: none; /* 🔽 PARA SAFARI/IOS 🔽 */
     transform: translateY(20px); /* 🔽 MENOS DESPLAZAMIENTO 🔽 */
     animation: containerSlideFromBottomMobile 0.4s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
   }
@@ -356,6 +358,7 @@ h1:hover {
     max-width: 98%;
     max-height: 80vh; /* 🔽 MÁS ESPACIO ARRIBA 🔽 */
     padding: 1.25rem;
+    backdrop-filter: none;
     transform: translateY(15px); /* 🔽 POCO DESPLAZAMIENTO 🔽 */
   }
   
@@ -408,6 +411,7 @@ h1:hover {
     max-width: 100%;
     max-height: 75vh; /* 🔽 AÚN MÁS ESPACIO ARRIBA 🔽 */
     padding: 1rem;
+    backdrop-filter: none;
     transform: translateY(10px); /* 🔽 MÍNIMO DESPLAZAMIENTO 🔽 */
   }
   

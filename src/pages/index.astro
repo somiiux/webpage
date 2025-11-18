@@ -81,7 +81,8 @@ import "../styles/global.css";
 				<h2 class="biografia-title">BIIO</h2>
 				<div class="biografia-content">
 					<p>
-						SOMIIUX is an emergiing GROOVY AND HYPNOTIC DJ based in GALIICIA.
+						SOMIIUX is an emergiing GROOVY AND HYPNOTIC DJ based in
+						GALIICIA.
 						<br /><br />
 						Origiinally from O VALADOURO and living in A CORUÑA, he discovered
 						his passion for techno through the local scene, attendiing
@@ -131,7 +132,10 @@ import "../styles/global.css";
 
 				body.classList.add("locked");
 
-				// 🔽 ESQUINA SUPERIOR IZQUIERDA EXACTA 🔽
+				// 🔽 SOLUCIÓN SIMPLE: REMOVER Y VOLVER A AÑADIR CLASES 🔽
+				biografiaSection.classList.remove("active");
+				void biografiaSection.offsetWidth; // Forzar reflow
+
 				mainContent.style.transform =
 					"translate(-100vw, -100vh) scale(0.6)";
 				mainContent.style.opacity = "0";
@@ -140,34 +144,29 @@ import "../styles/global.css";
 				setTimeout(() => {
 					biografiaSection.classList.add("active");
 					body.classList.remove("locked");
-				}, 400);
+				}, 50); // 🔽 DELAY MUY CORTO 🔽
 			});
 
-			// Función para cerrar biografía
+			// Función para cerrar biografía (igual que antes)
 			volverBtn.addEventListener("click", () => {
 				body.classList.add("locked");
 
-				// DETECTAR SI ES MÓVIL O DESKTOP
 				const isMobile = window.innerWidth <= 768;
 				const exitAnimation = isMobile
 					? "containerSlideToBottomMobile"
 					: "containerSlideToBottomRight";
 
-				// BIO VUELVE POR DONDE VINO (ESQUINA INFERIOR DERECHA)
 				biografiaContainer.style.animation = `${exitAnimation} 0.6s ease forwards`;
 
-				// Ocultar contenido interno de bio durante la salida
 				document.querySelector(".biografia-title").style.opacity = "0";
 				document.querySelector(".biografia-content").style.opacity =
 					"0";
 				document.querySelector(".volver-btn").style.opacity = "0";
 
 				setTimeout(() => {
-					// QUITAR BIO (FONDO NEGRO SE MANTIENE)
 					biografiaSection.classList.remove("active");
 					biografiaContainer.style.animation = "";
 
-					// 🔽 SOMIIUX VUELVE DESDE ESQUINA SUPERIOR IZQUIERDA EXACTA 🔽
 					mainContent.style.transform =
 						"translate(-100vw, -100vh) scale(0.6)";
 					mainContent.style.opacity = "0";
@@ -177,13 +176,12 @@ import "../styles/global.css";
 							"translate(0, 0) scale(1)";
 						mainContent.style.opacity = "1";
 
-						// FONDO SE DESVANECE POCO A POCO
 						setTimeout(() => {
 							body.style.opacity = "1";
 							body.classList.remove("locked");
 						}, 800);
 					}, 50);
-				}, 300); // 🔽 TIEMPO COHERENTE CON LA ANIMACIÓN DE SALIDA (0.6s) 🔽
+				}, 600);
 			});
 
 			// Cerrar con ESC
