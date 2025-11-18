@@ -44,6 +44,10 @@ body {
 }
 
 /* === FONDO HOME === */
+body {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body::after {
   content: "";
   position: fixed;
@@ -52,14 +56,17 @@ body::after {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 1.2s ease;
+  opacity: 1;
   filter: brightness(0.4);
   z-index: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-body.show-bg::after {
-  opacity: 1;
+/* === CONTENIDO PRINCIPAL === */
+.main-content {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
 }
 
 /* === CONTIDO CENTRAL === */
@@ -91,15 +98,6 @@ h1:hover {
 .focus-in-website {
   font-family: 'SpaceMono';
   font-size: 1rem;
-}
-
-@media (hover: none),
-(pointer: coarse) {
-  body::after {
-    filter: brightness(0.25);
-    /* 👈 máis escuro en pantallas táctiles */
-    transition: opacity 2s ease, filter 0.5s ease;
-  }
 }
 
 
@@ -144,15 +142,12 @@ h1:hover {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  animation: focus-in-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  align-items: flex-end;
+  justify-content: flex-end;
+  transition: all 0.6s ease;
+  animation: focus-in-expand 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation-delay: 0.6s;
   opacity: 0;
-}
-
-.main-content {
-  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
-  transform-origin: center center;
 }
 
 .biografia-section {
@@ -173,7 +168,8 @@ h1:hover {
 
 .biografia-section.active {
   display: flex;
-  animation: bioFadeIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  animation: bioFadeIn 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  transform-origin: bottom right;
 }
 
 /* Animación lenta de frenado para la bio */
@@ -190,31 +186,30 @@ h1:hover {
 .biografia-container {
   max-width: 1000px;
   width: 90%;
+  max-height: 90vh;
   padding: 3rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  transform: translateY(40px) scale(0.95);
-  animation: containerSlideIn 1.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  transform: translateX(100px) translateY(100px) scale(0.9);
+  animation: containerSlideFromBottomRight 0.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   animation-delay: 0.1s;
   opacity: 0;
+  overflow-y: auto;
+  transform-origin: bottom right;
 }
 
 /* Animación de deslizamiento suave con frenado */
-@keyframes containerSlideIn {
+@keyframes containerSlideFromBottomRight {
   0% {
     opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-
-  70% {
-    transform: translateY(-5px) scale(1.01);
+    transform: translateX(100px) translateY(100px) scale(0.9);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateX(0) translateY(0) scale(1);
   }
 }
 
@@ -248,8 +243,10 @@ h1:hover {
   color: #e5e7eb;
   margin-bottom: 2rem;
   animation: contentFadeIn 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  animation-delay: 0.5s;
+  animation-delay: 0.1s;
   opacity: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 @keyframes contentFadeIn {
@@ -266,6 +263,7 @@ h1:hover {
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
   font-family: 'SpaceMono';
+  text-align: left;
 }
 
 .volver-btn {
@@ -279,9 +277,22 @@ h1:hover {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  animation: focus-in-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation-delay: 0.6s;
+  animation: focus-in-expand 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 0.1s;
   opacity: 0;
+}
+
+/* === ANIMACIÓN DE SALIDA DE BIOGRAFÍA === */
+@keyframes bioSlideOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(150px) translateY(150px) scale(0.1);
+  }
 }
 
 @keyframes buttonFadeIn {
@@ -305,3 +316,5 @@ h1:hover {
     font-size: 2rem;
   }
 }
+
+

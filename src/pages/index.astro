@@ -73,9 +73,7 @@ import "../styles/global.css";
 	<body>
 		<main id="mainContent" class="main-content">
 			<h1 id="title" class="focus-in-somiiux">SOMIIUX</h1>
-			<button id="biografiaBtn" class="biografia-btn">
-				BIIO
-			</button>
+			<button id="biografiaBtn" class="biografia-btn"> BIIO </button>
 		</main>
 
 		<section id="biografia" class="biografia-section">
@@ -83,22 +81,34 @@ import "../styles/global.css";
 				<h2 class="biografia-title">BIIO</h2>
 				<div class="biografia-content">
 					<p>
-					SOMIIUX is an emergiing GROOVY AND HYPNOTIC DJ and producer based in galiicia.
-					<br><br>
-					Origiinally from O VALADOURO and living in A CORUÑA, he discovered his passion for techno through the local scene, 
-					attendiing clubs and events where he developed a deep connection with rhythm and the energy of electroniic music. 
-					His style blends driiving grooves with hypnotic atmospheres, aiming to immerse the listener in a state of motiion and trance.
-					<br><br>
-					In 2022, together with his brother LUCASIITO, he purchased his first DJ controller and productiion software, marking 
-					the begiinning of his creative journey. Since then, SOMIIUX has been shaping his sound, taking inspiiration from labels such as 
-					HATE, VAULT SESSIONS or MUTUAL RYTM, as well as artiists like FUNK ASSAULT, HYDEN, LOBSTER, among others.
-					<br><br>
-					After a year and a half of exploratiion and learning, he began performing live — some sets alongside his brother and others 
-					solo — experiiences that allowed him to connect directly with the audiience and bring his HYPNOTIC ENERGY to the dancefloor.
-					He is currently in a continuous process of growth, refiniing both his music productiion in ableton and his djing techniique.
-					<br><br>
-					His goal is to keep evolving his artistic identity, perfecting his craft both in the studiio and on stage to deliver an 
-					increasiingly soliid, authentiic, and personal expression of hiis sound.
+						SOMIIUX is an emergiing GROOVY AND HYPNOTIC DJ and
+						producer based in galiicia.
+						<br /><br />
+						Origiinally from O VALADOURO and living in A CORUÑA, he discovered
+						his passion for techno through the local scene, attendiing
+						clubs and events where he developed a deep connection with
+						rhythm and the energy of electroniic music. His style blends
+						driiving grooves with hypnotic atmospheres, aiming to immerse
+						the listener in a state of motiion and trance.
+						<br /><br />
+						In 2022, together with his brother LUCASIITO, he purchased
+						his first DJ controller and productiion software, marking
+						the begiinning of his creative journey. Since then, SOMIIUX
+						has been shaping his sound, taking inspiiration from labels
+						such as HATE, VAULT SESSIONS or MUTUAL RYTM, as well as artiists
+						like FUNK ASSAULT, HYDEN, LOBSTER, among others.
+						<br /><br />
+						After a year and a half of exploratiion and learning, he
+						began performing live — some sets alongside his brother and
+						others solo — experiiences that allowed him to connect directly
+						with the audiience and bring his HYPNOTIC ENERGY to the dancefloor.
+						He is currently in a continuous process of growth, refiniing
+						both his music productiion in ableton and his djing techniique.
+						<br /><br />
+						His goal is to keep evolving his artistic identity, perfecting
+						his craft both in the studiio and on stage to deliver an
+						increasiingly soliid, authentiic, and personal expression
+						of hiis sound.
 					</p>
 				</div>
 
@@ -107,44 +117,23 @@ import "../styles/global.css";
 		</section>
 
 		<script is:inline>
-			// 🔽 SCRIPT CORREGIDO - MÁS SIMPLE 🔽
-
 			const body = document.body;
-			const title = document.getElementById("title");
 			const biografiaBtn = document.getElementById("biografiaBtn");
 			const volverBtn = document.getElementById("volverBtn");
 			const mainContent = document.getElementById("mainContent");
 			const biografiaSection = document.getElementById("biografia");
 
-			// detectamos se é un dispositivo táctil (móbil/tablet)
-			const isTouch = matchMedia(
-				"(hover: none), (pointer: coarse)",
-			).matches;
-
-			if (!isTouch) {
-				title.addEventListener("mouseenter", () => {
-					body.classList.add("show-bg");
-				});
-
-				title.addEventListener("mouseleave", () => {
-					body.classList.remove("show-bg");
-				});
-			} else {
-				window.addEventListener("load", () => {
-					setTimeout(() => {
-						body.classList.add("show-bg");
-					}, 3000);
-				});
-			}
-
 			// Función para abrir biografía
 			biografiaBtn.addEventListener("click", () => {
-				console.log("Botón clickeado"); // Para debug
+				console.log("Botón clickeado");
 
 				body.classList.add("locked");
+
+				// 🔽 VERSIÓN DRAMÁTICA AL ABRIR TAMBIÉN 🔽
 				mainContent.style.transform =
-					"translate(-100%, -100%) scale(0.3)";
+					"translate(-150%, -150%) scale(0.6)";
 				mainContent.style.opacity = "0";
+				body.style.opacity = "0";
 
 				setTimeout(() => {
 					biografiaSection.classList.add("active");
@@ -155,13 +144,28 @@ import "../styles/global.css";
 			// Función para cerrar biografía
 			volverBtn.addEventListener("click", () => {
 				body.classList.add("locked");
-				biografiaSection.classList.remove("active");
+
+				// ANIMACIÓN DE SALIDA DE LA BIOGRAFÍA (VERSIÓN DRAMÁTICA)
+				// La biografía sale hacia abajo-derecha
+				biografiaSection.style.animation =
+					"bioSlideOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards";
+
+				// El contenido principal vuelve desde arriba-izquierda
+				mainContent.style.transform =
+					"translate(-150%, -150%) scale(0.6)";
+				mainContent.style.opacity = "0";
 
 				setTimeout(() => {
+					// Restaurar todo después de la animación
+					biografiaSection.classList.remove("active");
+					biografiaSection.style.animation = ""; // Resetear animación
+
 					mainContent.style.transform = "translate(0, 0) scale(1)";
 					mainContent.style.opacity = "1";
+					body.style.opacity = "1";
+
 					body.classList.remove("locked");
-				}, 50);
+				}, 800); // Esperar a que termine la animación
 			});
 
 			// Cerrar con ESC
