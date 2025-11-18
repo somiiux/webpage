@@ -142,179 +142,335 @@ h1:hover {
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  align-items: flex-end;
-  justify-content: flex-end;
-  transition: all 0.6s ease;
-  animation: focus-in-expand 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  transition: all 0.3s ease;
+  animation: focus-in-expand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation-delay: 0.6s;
   opacity: 0;
 }
 
+.biografia-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* CONTENEDOR CENTRADO PERO ANIMACIÓN DESDE ABAJO-DERECHA */
 .biografia-section {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #0a0a0a;
   color: white;
   z-index: 100;
   display: none;
-  align-items: center;
-  justify-content: center;
+  align-items: center; /* 🔽 CENTRADO VERTICAL 🔽 */
+  justify-content: center; /* 🔽 CENTRADO HORIZONTAL 🔽 */
   opacity: 0;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 .biografia-section.active {
   display: flex;
-  animation: bioFadeIn 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  transform-origin: bottom right;
+  animation: bioFadeIn 0.3s ease forwards;
 }
 
-/* Animación lenta de frenado para la bio */
 @keyframes bioFadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .biografia-container {
-  max-width: 1000px;
-  width: 90%;
-  max-height: 90vh;
+  width: 95%;
+  max-width: 1400px;
+  height: auto;
+  max-height: 85vh;
   padding: 3rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  transform: translateX(100px) translateY(100px) scale(0.9);
-  animation: containerSlideFromBottomRight 0.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  animation-delay: 0.1s;
+  transform: translateX(100vw) translateY(100vh); /* 🔽 POSICIÓN INICIAL ABAJO-DERECHA 🔽 */
+  animation: containerSlideFromBottomRight 0.6s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
   opacity: 0;
   overflow-y: auto;
-  transform-origin: bottom right;
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0;
 }
 
-/* Animación de deslizamiento suave con frenado */
+/* 🔽 ANIMACIÓN DE ENTRADA DESDE ESQUINA INFERIOR DERECHA 🔽 */
 @keyframes containerSlideFromBottomRight {
   0% {
     opacity: 0;
-    transform: translateX(100px) translateY(100px) scale(0.9);
+    transform: translateX(100vw) translateY(100vh); /* 🔽 DESDE FUERA DE PANTALLA ABAJO-DERECHA 🔽 */
   }
-
   100% {
     opacity: 1;
-    transform: translateX(0) translateY(0) scale(1);
+    transform: translateX(0) translateY(0);
+  }
+}
+
+/* 🔽 ANIMACIÓN DE SALIDA HACIA ESQUINA INFERIOR DERECHA 🔽 */
+@keyframes containerSlideToBottomRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100vw) translateY(100vh); /* 🔽 HACIA FUERA DE PANTALLA ABAJO-DERECHA 🔽 */
   }
 }
 
 .biografia-title {
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: bold;
   margin-bottom: 2rem;
   color: white;
   text-align: center;
-  animation: titleSlideIn 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  animation-delay: 0.3s;
+  animation: titleFadeIn 0.5s ease forwards;
+  animation-delay: 0.1s;
   opacity: 0;
-  transform: translateY(20px);
+  line-height: 1.2;
 }
 
-@keyframes titleSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes titleFadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .biografia-content {
-  font-size: 1.125rem;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   line-height: 1.7;
   color: #e5e7eb;
   margin-bottom: 2rem;
-  animation: contentFadeIn 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-  animation-delay: 0.1s;
+  animation: contentFadeIn 0.5s ease forwards;
+  animation-delay: 0.2s;
   opacity: 0;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  text-align: center;
+  width: 100%;
 }
 
 @keyframes contentFadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .biografia-content p {
   margin-bottom: 1.5rem;
-  font-size: 0.9rem;
+  font-size: inherit;
   font-family: 'SpaceMono';
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   text-align: left;
 }
 
 .volver-btn {
   display: inline-block;
-  margin-top: 2rem;
   padding: 0.75rem 2rem;
   border: none;
   border-radius: 4rem;
   font-family: 'Monument_Reg';
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  animation: focus-in-expand 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation-delay: 0.1s;
+  animation: buttonFadeIn 0.5s ease forwards;
+  animation-delay: 0.3s;
   opacity: 0;
+  margin: 0 auto;
 }
 
-/* === ANIMACIÓN DE SALIDA DE BIOGRAFÍA === */
-@keyframes bioSlideOut {
-  0% {
-    opacity: 1;
-    transform: translateX(0) translateY(0) scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateX(150px) translateY(150px) scale(0.1);
-  }
+.volver-btn:hover {
+  transform: translateY(-2px);
 }
 
 @keyframes buttonFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
+/* 🔽 RESPONSIVE - EN MÓVIL DESDE ABAJO CENTRADO 🔽 */
 @media (max-width: 768px) {
   .biografia-container {
-    padding: 2rem;
+    max-width: 95%;
+    max-height: 90vh;
+    padding: 1.5rem;
+    width: 95%;
+    transform: translateX(100vw) translateY(100vh); /* 🔽 MISMA POSICIÓN INICIAL 🔽 */
+    animation: containerSlideFromBottomRightMobile 0.6s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
   }
-
+  
+  .biografia-container {
+    max-width: 95%;
+    max-height: 90vh;
+    padding: 2rem;
+    width: 95%;
+    transform: translateY(100px); /* 🔽 POSICIÓN INICIAL ABAJO 🔽 */
+    animation: containerSlideFromBottom 0.4s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
+  }
+  
+  /* 🔽 ANIMACIÓN PARA MÓVIL TAMBIÉN DESDE ESQUINA 🔽 */
+  @keyframes containerSlideFromBottomRightMobile {
+    0% {
+      opacity: 0;
+      transform: translateX(100vw) translateY(100vh);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
+  }
+  
+  /* 🔽 SALIDA PARA MÓVIL TAMBIÉN HACIA ESQUINA 🔽 */
+  @keyframes containerSlideToBottomRightMobile {
+    0% {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100vw) translateY(100vh);
+    }
+  }
+  
   .biografia-title {
-    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .biografia-content {
+    font-size: 0.95rem;
+  }
+  
+  .biografia-content p {
+    line-height: 1.6;
+    font-size: 0.9rem;
   }
 }
 
+@media (max-width: 640px) {
+  .biografia-section {
+    padding: 0.5rem;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .biografia-container {
+    max-width: 98%;
+    width: 98%;
+    max-height: 95vh;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    transform: translateY(80px);
+  }
+  
+  @keyframes containerSlideFromBottom {
+    0% {
+      opacity: 0;
+      transform: translateY(80px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes containerSlideToBottom {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(80px);
+    }
+  }
+  
+  .biografia-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .biografia-content {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  
+  .biografia-content p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  
+  .volver-btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.8rem;
+  }
+}
 
+@media (max-width: 480px) {
+  .biografia-container {
+    max-width: 100%;
+    width: 100%;
+    max-height: 100vh;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    transform: translateY(70px);
+  }
+  
+  @keyframes containerSlideFromBottom {
+    0% {
+      opacity: 0;
+      transform: translateY(70px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes containerSlideToBottom {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(70px);
+    }
+  }
+  
+  .biografia-title {
+    font-size: 1.4rem;
+  }
+  
+  .biografia-content {
+    font-size: 0.8rem;
+  }
+  
+  .biografia-content p {
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+}
+
+/* SCROLLBAR */
+.biografia-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.biografia-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.biografia-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.biografia-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
