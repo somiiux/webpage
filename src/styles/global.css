@@ -156,17 +156,16 @@ h1:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.95);
   color: white;
   z-index: 100;
-  display: none; /* 🔽 CONTROLADO POR JAVASCRIPT 🔽 */
-  align-items: center;
-  justify-content: center;
-  opacity: 0; /* 🔽 CONTROLADO POR JAVASCRIPT 🔽 */
+  display: none;
+  align-items: center; /* 🔽 CENTRADO VERTICAL 🔽 */
+  justify-content: center; /* 🔽 CENTRADO HORIZONTAL 🔽 */
+  opacity: 0;
   padding: 2rem;
   box-sizing: border-box;
-  transition: opacity 0.3s ease; /* 🔽 TRANSICIÓN SIMPLE 🔽 */
 }
+
 .biografia-section.active {
   display: flex;
   animation: bioFadeIn 0.3s ease forwards;
@@ -178,14 +177,15 @@ h1:hover {
 }
 
 .biografia-container {
-  width: 90%;
-  max-width: 700px;
+  width: 95%;
+  max-width: 1400px;
   height: auto;
   max-height: 85vh;
-  padding: 2rem;
-  background: transparent;
-  border: none;
-  opacity: 1; /* 🔽 SIEMPRE VISIBLE CUANDO LA SECTION LO ESTÁ 🔽 */
+  padding: 3rem;
+  backdrop-filter: blur(10px);
+  transform: translateX(100vw) translateY(100vh); /* 🔽 POSICIÓN INICIAL ABAJO-DERECHA 🔽 */
+  animation: containerSlideFromBottomRight 0.6s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
+  opacity: 0;
   overflow-y: auto;
   position: relative;
   text-align: center;
@@ -294,14 +294,20 @@ h1:hover {
 @media (max-width: 768px) {
   .biografia-section {
     padding: 1rem;
+    align-items: center; /* 🔽 CAMBIADO: Centrado vertical 🔽 */
+    justify-content: center;
   }
   
   .biografia-container {
     max-width: 95%;
-    max-height: 85vh;
+    max-height: 85vh; /* 🔽 REDUCIDO: Más espacio arriba 🔽 */
     padding: 1.5rem;
+    width: 95%;
+    backdrop-filter: none; /* 🔽 ASEGURAR QUE ESTÉ EN NONE 🔽 */
+    -webkit-backdrop-filter: none; /* 🔽 PARA SAFARI/IOS 🔽 */
+    transform: translateY(20px); /* 🔽 MENOS DESPLAZAMIENTO 🔽 */
+    animation: containerSlideFromBottomMobile 0.4s cubic-bezier(0.25, 0.75, 0.5, 1) forwards;
   }
-}
   
   /* 🔽 ANIMACIÓN MÓVIL MÁS CENTRADA 🔽 */
   @keyframes containerSlideFromBottomMobile {
@@ -339,6 +345,7 @@ h1:hover {
     line-height: 1.6;
     font-size: 0.9rem;
   }
+}
 
 @media (max-width: 640px) {
   .biografia-section {
